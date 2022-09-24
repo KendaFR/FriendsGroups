@@ -1,0 +1,7 @@
+name: FriendsGroups
+version: '${project.version}'
+main: fr.kenda.friendsgroups.bungeecord.FriendsGroups
+authors: [ Kenda ]
+description: Plugin de Friends et groupes
+depend:
+  - RushAPI
