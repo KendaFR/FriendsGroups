@@ -1,8 +1,8 @@
 package fr.kenda.friendsgroups.bungeecord.commands;
 
 import fr.kenda.friendsgroups.bungeecord.FriendsGroups;
+import fr.kenda.friendsgroups.bungeecord.friends.Friends;
 import fr.kenda.rushapi.bungeecord.RushAPI;
-import fr.kenda.rushapi.bungeecord.users.Friends;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
@@ -14,7 +14,8 @@ import net.md_5.bungee.api.plugin.Command;
 public class FriendsCommand extends Command {
 
     private final ProxyServer proxy = RushAPI.getInstance().getProxy();
-    private final Friends friends = RushAPI.friends;
+    private final String prefix = FriendsGroups.PFRIENDS;
+    private final Friends friends = FriendsGroups.friends;
 
     public FriendsCommand(FriendsGroups friends) {
         super("friends");
@@ -27,6 +28,8 @@ public class FriendsCommand extends Command {
             return;
         }
         ProxiedPlayer player = (ProxiedPlayer) sender;
+
+        // /friends show list
         if (args.length == 0) {
             player.sendMessage(new TextComponent(ChatColor.GREEN + "========================== \n" +
                     ChatColor.GOLD + "Listes des amis: \n"));
@@ -41,6 +44,16 @@ public class FriendsCommand extends Command {
                 });
             }
             player.sendMessage(new TextComponent(ChatColor.GREEN + "=========================="));
+            return;
+        }
+        if (args.length == 1) {
+            if (!(args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("add") || args[0].equalsIgnoreCase("remove"))) {
+                player.sendMessage(new TextComponent(ChatColor.GREEN + "=========================="));
+                player.sendMessage(new TextComponent(ChatColor.WHITE + "/friends help"));
+                player.sendMessage(new TextComponent(ChatColor.WHITE + "/friends <add/remove> <player>"));
+                player.sendMessage(new TextComponent(ChatColor.GREEN + "=========================="));
+            }
+            return;
         }
     }
 
